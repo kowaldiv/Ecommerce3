@@ -4,12 +4,14 @@ export function Button({
   onClick,
   title,
   className,
+  disabled,
 }: {
   children?: React.ReactNode;
   variant?: "primary" | "default";
   onClick?: () => void;
   title?: string;
   className?: string;
+  disabled?: boolean;
 }) {
   return (
     <button
@@ -23,6 +25,7 @@ export function Button({
             : ""
       }`}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
       {title}

@@ -1,8 +1,9 @@
-import { images } from "@/src/assets";
-import { Dropdown } from "./Dropdown";
-import { Input } from "./Input";
-import { Button } from "./Button";
+import { Dropdown } from "../Dropdown";
+import { Input } from "../Input";
+import { Button } from "../Button";
 import { useCallback, useState } from "react";
+import { SpecialDealTimer } from "./SpecialDealTimer";
+import { WeatherWidget } from "./WeatherWidget";
 
 interface SideBarProps {
   brands: string[];
@@ -93,19 +94,8 @@ export function SideBar({
           />
         </div>
       </div>
-      <div className="p-4 bg-linear-to-r from-[#D4183D] to-[rgba(212,24,61,0.8)] rounded-xl grid gap-2">
-        <div className="flex gap-2 items-center">
-          <img src={images.icons.clock} alt="clock" />
-          <p className="text-background font-medium text-lg">Special Deal!</p>
-        </div>
-        <div className="text-background">
-          <p>Register now to unlock exclusive offers and discounts</p>
-          <div className="flex gap-5">
-            <p>Offer expires in:</p>
-            <p>0:59:59</p> {/* TODO: сделать норм таймер потом */}
-          </div>
-        </div>
-      </div>
+      <SpecialDealTimer />
+      <WeatherWidget />
     </aside>
   );
 }

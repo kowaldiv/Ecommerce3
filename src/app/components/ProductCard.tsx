@@ -1,9 +1,9 @@
-import { useCallback, useRef, useState } from "react";
+import { memo, useCallback, useRef, useState } from "react";
 import { Button } from "./Button";
 import { images } from "@/src/assets";
 import type { Product } from "@/src/data/products";
 
-export function ProductCard({
+export const ProductCard = memo(function ProductCard({
   product,
   setCart,
   cart,
@@ -166,4 +166,4 @@ export function ProductCard({
       </div>
     </div>
   );
-}
+})

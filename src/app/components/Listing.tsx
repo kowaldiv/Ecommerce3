@@ -1,7 +1,7 @@
 import { products, type ProductCategoryType } from "@/src/data/products";
 import { Dropdown } from "../components/Dropdown";
 import { ProductCard } from "../components/ProductCard";
-import { SideBar } from "../components/SideBar";
+import { SideBar } from "./sideBar/SideBar";
 import { useMemo, useState } from "react";
 
 type SortOrder = "lowToHigh" | "highToLow";
