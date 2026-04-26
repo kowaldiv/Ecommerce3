@@ -5,6 +5,7 @@ import clock from "@/public/clock.svg";
 import arrow from "@/public/arrow.svg";
 import favorite from "@/public/favorite.svg";
 import bin from "@/public/bin.svg";
+import close from "@/public/close.svg";
 
 export const images = {
   icons: {
@@ -15,5 +16,6 @@ export const images = {
     arrow,
     favorite,
     bin,
+    close,
   },
 };

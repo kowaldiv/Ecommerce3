@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Footer } from "./Footer";
 import { Header } from "./Header";
 import { Content } from "./Content";
@@ -9,15 +9,16 @@ export function Container() {
   const [pageType, setPageType] = useState<PageType>("tv");
   const [cart, setCart] = useState<Map<number, number>>(new Map());
 
+  const cartLength = useMemo(() => {
+    return Array.from(cart.values()).reduce((sum, count) => sum + count, 0);
+  }, [cart]);
+
   return (
     <div className="min-h-dvh flex flex-col">
       <Header
         pageType={pageType}
         setPageType={setPageType}
-        cartLength={Array.from(cart.values()).reduce(
-          (sum, count) => sum + count,
-          0,
-        )}
+        cartLength={cartLength}
       />
       <Content
         pageType={pageType}
