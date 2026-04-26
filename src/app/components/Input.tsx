@@ -6,6 +6,7 @@ export function Input({
   placeholder,
   defaultValue,
   disabled,
+  required,
   ...props
 }: {
   type?: React.HTMLInputTypeAttribute;
@@ -15,6 +16,7 @@ export function Input({
   placeholder?: string;
   defaultValue?: string;
   disabled?: boolean;
+  required?: boolean;
 }) {
   return (
     <input
@@ -24,6 +26,7 @@ export function Input({
       placeholder={placeholder}
       defaultValue={defaultValue}
       disabled={disabled}
+      required={required}
       className={`p-2 border border-border bg-surface rounded-lg w-full focus:outline-none ${className}`}
       {...props}
     />

@@ -1,6 +1,7 @@
 import { SpecialDealTimer } from "./SpecialDealTimer";
 import { WeatherWidget } from "./WeatherWidget";
 import { Filters, type FilterProps } from "./Filters";
+import { ModalButton } from "./ModalButton";
 
 export function SideBar(props: FilterProps) {
   return (
@@ -8,6 +9,7 @@ export function SideBar(props: FilterProps) {
       <Filters {...props} />
       <SpecialDealTimer />
       <WeatherWidget />
+      <ModalButton />
     </aside>
   );
 }
