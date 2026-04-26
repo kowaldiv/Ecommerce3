@@ -1,4 +1,4 @@
-import { Listing } from "@/src/app/components/Listing";
+import { Listing } from "@/src/app/components/listing/Listing";
 
 export function PhoneListing(props: {
   setCart: React.Dispatch<React.SetStateAction<Map<number, number>>>;

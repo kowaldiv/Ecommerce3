@@ -2,10 +2,8 @@ import { Dropdown } from "../Dropdown";
 import { Input } from "../Input";
 import { Button } from "../Button";
 import { useCallback, useState } from "react";
-import { SpecialDealTimer } from "./SpecialDealTimer";
-import { WeatherWidget } from "./WeatherWidget";
 
-interface SideBarProps {
+export interface FilterProps {
   brands: string[];
   onApplyFilters: (filters: {
     brand: string;
@@ -18,13 +16,13 @@ interface SideBarProps {
   initialMaxPrice?: number;
 }
 
-export function SideBar({
+export function Filters({
   brands,
   onApplyFilters,
   initialBrand = "all",
   initialMinPrice = 0,
   initialMaxPrice = Infinity,
-}: SideBarProps) {
+}: FilterProps) {
   const [draftBrand, setDraftBrand] = useState(initialBrand);
   const [draftMinPrice, setDraftMinPrice] = useState(initialMinPrice);
   const [draftMaxPrice, setDraftMaxPrice] = useState(initialMaxPrice);
@@ -57,45 +55,41 @@ export function SideBar({
   );
 
   return (
-    <aside className="lg:w-3xs w-full h-full grid gap-4">
-      <div className="p-4 border border-border rounded-xl grid gap-4">
-        <p className="font-medium text-xl">Filters</p>
+    <div className="p-4 border border-border rounded-xl grid gap-4">
+      <p className="font-medium text-xl">Filters</p>
+      <div className="grid gap-6">
         <div className="grid gap-6">
-          <div className="grid gap-6">
-            <div className="grid gap-2">
-              <p className="text-base font-medium">Brand</p>
-              <Dropdown
-                options={brandOptions}
-                onChange={setDraftBrand}
-                className="w-full"
+          <div className="grid gap-2">
+            <p className="text-base font-medium">Brand</p>
+            <Dropdown
+              options={brandOptions}
+              onChange={setDraftBrand}
+              className="w-full"
+            />
+          </div>
+          <div className="grid gap-2">
+            <p className="text-base font-medium">Price Range</p>
+            <div className="flex gap-2">
+              <Input
+                onChange={handleMinPriceChange}
+                placeholder={initialMinPrice.toString()}
+                type="number"
+              />
+              <Input
+                onChange={handleMaxPriceChange}
+                placeholder={initialMaxPrice.toString()}
+                type="number"
               />
             </div>
-            <div className="grid gap-2">
-              <p className="text-base font-medium">Price Range</p>
-              <div className="flex gap-2">
-                <Input
-                  onChange={handleMinPriceChange}
-                  placeholder={initialMinPrice.toString()}
-                  type="number"
-                />
-                <Input
-                  onChange={handleMaxPriceChange}
-                  placeholder={initialMaxPrice.toString()}
-                  type="number"
-                />
-              </div>
-            </div>
           </div>
-          <Button
-            title="Apply Filters"
-            onClick={handleApply}
-            variant="primary"
-            className="w-full"
-          />
         </div>
+        <Button
+          title="Apply Filters"
+          onClick={handleApply}
+          variant="primary"
+          className="w-full"
+        />
       </div>
-      <SpecialDealTimer />
-      <WeatherWidget />
-    </aside>
+    </div>
   );
 }

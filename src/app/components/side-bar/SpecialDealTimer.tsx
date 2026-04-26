@@ -2,21 +2,21 @@ import { images } from "@/src/assets";
 import { useEffect, useState } from "react";
 import { Button } from "../Button";
 
-const initialTimeLeft = 35999;
+const initialTimeLeft = 3599;
+
+const formatTime = (totalSeconds: number): string => {
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  return `${hours.toString()}:${minutes
+    .toString()
+    .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+};
 
 export function SpecialDealTimer() {
   const [isSpecialDealBlockClose, setIsSpecialDealBlockClose] = useState(false);
   const [timeLeft, setTimeLeft] = useState(initialTimeLeft);
   const [isActive, setIsActive] = useState(true);
-
-  const formatTime = (totalSeconds: number): string => {
-    const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = totalSeconds % 60;
-    return `${hours.toString()}:${minutes
-      .toString()
-      .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-  };
 
   useEffect(() => {
     // тут отсчет идет
@@ -62,7 +62,7 @@ export function SpecialDealTimer() {
         <p>Register now to unlock exclusive offers and discounts</p>
         <div className="flex gap-5">
           <p>Offer expires in:</p>
-          <p>{formatTime(timeLeft)}</p>
+          <p>{timeLeft ? formatTime(timeLeft) : "таймер истёк"}</p>
         </div>
       </div>
       <div className="grid gap-3">
@@ -87,7 +87,11 @@ export function SpecialDealTimer() {
             variant="default"
             className="w-full"
             title="Restart"
-            onClick={() => setTimeLeft(initialTimeLeft)}
+            disabled={timeLeft !== 0}
+            onClick={() => {
+              setTimeLeft(initialTimeLeft);
+              setIsActive(true);
+            }}
           />
         </div>
       </div>
