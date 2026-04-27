@@ -1,12 +1,13 @@
 import { images } from "@/src/assets";
-import { Button } from "../Button";
+import { Button } from "../../Button";
 import { useEffect, useRef, useState } from "react";
-import { Input } from "../Input";
-import { Spinner } from "../Spinner";
+import { Spinner } from "../../Spinner";
+import { WeatherInfo } from "./WeatherInfo";
+import { SearchSection } from "./SearchSection";
 
 const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
-interface Weather {
+export interface Weather {
   city: string;
   temp: number;
   description: string;
@@ -120,7 +121,7 @@ export function WeatherWidget() {
   const [city, setCity] = useState("Тюмень");
   const [geoError, setGeoError] = useState<string | null>(null);
   const [weatherError, setWeatherError] = useState<string | null>(null);
-  const [failedCities, setFailedCities] = useState(new Set());
+  const [failedCities, setFailedCities] = useState<Set<string>>(new Set());
   const [weather, setWeather] = useState<Weather>();
 
   async function handleGetWeather(city: string) {
@@ -196,6 +197,11 @@ export function WeatherWidget() {
     fetchData();
   }, []);
 
+  const handleCityChange = (city: string) => {
+    setCity(city);
+    setGeoError(null); // очищаем ошибку при печати
+  };
+
   return (
     <div
       className={`p-4 bg-linear-to-r from-cyan-500 to-cyan-300 rounded-xl text-background relative 
@@ -213,46 +219,16 @@ export function WeatherWidget() {
           >
             <img src={images.icons.close} alt="" />
           </Button>
-          <span className="font-medium text-xl">{weather?.city}</span>
-          <div className="mt-5 grid gap-3">
-            <div>
-              <div className="flex items-center justify-between">
-                <p className="text-5xl font-medium px-8">
-                  {weather ? Math.round(weather?.temp) + "°" : ""}
-                </p>
-                <img
-                  src={`https://openweathermap.org/payload/api/media/file/${weather?.icon}.png`}
-                  alt=""
-                />
-              </div>
-              <p className="text-center text-2xl font-medium">
-                {weather?.description}
-              </p>
-              <p className="text-center">{weatherError}</p>
-            </div>
-            <div className="grid gap-3">
-              <p className="text-center">
-                {failedCities.has(city)
-                  ? `Город «${city}» ранее не найден`
-                  : ""}
-              </p>
-              <Input
-                disabled={isLoading}
-                defaultValue={city}
-                onChange={(e) => {
-                  setCity(e.target.value);
-                  setGeoError(null);
-                }}
-                className="w-full text-foreground"
-              />
-              {geoError ? <p className="text-center">{geoError}</p> : ""}
-              <Button
-                disabled={isLoading}
-                variant="default"
-                title="Получить погоду!"
-                onClick={() => handleGetWeather(city)}
-              />
-            </div>
+          <div className="grid gap-3">
+            <WeatherInfo weather={weather} weatherError={weatherError} />
+            <SearchSection
+              city={city}
+              isLoading={isLoading}
+              geoError={geoError}
+              failedCities={failedCities}
+              onCityChange={handleCityChange}
+              onSearch={handleGetWeather}
+            />
           </div>
         </>
       )}

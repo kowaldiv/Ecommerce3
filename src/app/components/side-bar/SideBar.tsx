@@ -1,5 +1,5 @@
 import { SpecialDealTimer } from "./SpecialDealTimer";
-import { WeatherWidget } from "./WeatherWidget";
+import { WeatherWidget } from "./weather-widget/WeatherWidget";
 import { Filters, type FilterProps } from "./Filters";
 import { ModalButton } from "./ModalButton";
 
