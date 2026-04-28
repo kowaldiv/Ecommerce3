@@ -66,34 +66,23 @@ export function SpecialDealTimer() {
         </div>
       </div>
       <div className="grid gap-3">
-        <div className="w-full flex gap-3">
-          <Button
-            variant="default"
-            className="flex-1!"
-            title="Stop"
-            onClick={() => setIsActive(false)}
-            disabled={!isActive || timeLeft === 0}
-          />
-          <Button
-            variant="default"
-            className="flex-1!"
-            title="Resume"
-            onClick={() => setIsActive(true)}
-            disabled={isActive || timeLeft === 0}
-          />
-        </div>
-        <div>
-          <Button
-            variant="default"
-            className="w-full"
-            title="Restart"
-            disabled={timeLeft !== 0}
-            onClick={() => {
-              setTimeLeft(initialTimeLeft);
-              setIsActive(true);
-            }}
-          />
-        </div>
+        <Button
+          variant="default"
+          className="flex-1!"
+          title={isActive ? "Стоп" : "Возобновить"}
+          onClick={() => setIsActive(!isActive)}
+          disabled={!timeLeft}
+        />
+        <Button
+          variant="default"
+          className="w-full"
+          title="Рестарт"
+          disabled={timeLeft !== 0}
+          onClick={() => {
+            setTimeLeft(initialTimeLeft);
+            setIsActive(true);
+          }}
+        />
       </div>
     </div>
   );
